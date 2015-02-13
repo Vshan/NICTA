@@ -72,8 +72,10 @@ headOr ::
   a
   -> List a
   -> a
-headOr =
-  error "todo"
+headOr d Nil = d
+headOr d (h :. t) = h
+  
+--  error "todo"
 
 -- | The product of the elements of a list.
 --
@@ -85,8 +87,10 @@ headOr =
 product ::
   List Int
   -> Int
-product =
-  error "todo"
+product Nil = 1
+product (h :. t) = foldRight (*) h t
+
+--  error "todo"
 
 -- | Sum the elements of the list.
 --
@@ -100,8 +104,9 @@ product =
 sum ::
   List Int
   -> Int
-sum =
-  error "todo"
+sum Nil = 0
+sum (h :. t) = foldRight (+) h t
+--  error "todo"
 
 -- | Return the length of the list.
 --
@@ -112,8 +117,9 @@ sum =
 length ::
   List a
   -> Int
-length =
-  error "todo"
+length Nil = 0
+length (h :. t) = 1 + length t
+--  error "todo"
 
 -- | Map the given function on each element of the list.
 --
@@ -127,8 +133,9 @@ map ::
   (a -> b)
   -> List a
   -> List b
-map =
-  error "todo"
+map _ Nil = Nil
+map f (h :. t) = f h :. (map f t)
+--  error "todo"
 
 -- | Return elements satisfying the given predicate.
 --
@@ -144,8 +151,18 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter =
-  error "todo"
+filter _ Nil = Nil
+filter f (h :. t) = if f h then h :. (filter f t) else (filter f t)
+
+{-- 
+-- Using Guards
+filter _ Nil = Nil
+filter f (h :. t) 
+  | f h = h :. $ filter f t 
+  | otherwise = filter f t
+--}
+
+--  error "todo"
 
 -- | Append two lists to a new list.
 --
