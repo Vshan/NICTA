@@ -214,7 +214,7 @@ flatten (h :. t) = h ++ flatten t
 -- prop> flatMap id (x :: List (List Int)) == flatten x
 flatMap :: (a -> List b) -> List a -> List b
 flatMap f Nil = Nil
-flatMap f (h :. t) = flatten $ f h :. flatMap f t
+flatMap f x = flatten . map f $ x
 --  error "todo"
 
 -- | Flatten a list of lists to a list (again).
@@ -224,6 +224,7 @@ flatMap f (h :. t) = flatten $ f h :. flatMap f t
 flattenAgain ::
   List (List a)
   -> List a
+-- flattenAgain (h :. t) = flatMap (\x -> x :. Nil) h ++ flattenAgain t
 flattenAgain =
   error "todo"
 
