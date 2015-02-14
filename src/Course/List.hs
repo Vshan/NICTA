@@ -182,7 +182,7 @@ filter f (h :. t)
   -> List a
 (++) x Nil = x
 (++) Nil x = x
-(++) (h :. t) (h2 :. t2) =
+(++) (h :. t) x = h :. (t ++ x)
 --  error "todo"
 
 infixr 5 ++
@@ -197,11 +197,10 @@ infixr 5 ++
 -- prop> headOr x (flatten (y :. infinity :. Nil)) == headOr 0 y
 --
 -- prop> sum (map length x) == length (flatten x)
-flatten ::
-  List (List a)
-  -> List a
-flatten =
-  error "todo"
+flatten :: List (List a) -> List a
+flatten (h :. Nil) = h ++ Nil
+flatten (h :. t) = h ++ flatten t
+--  error "todo"
 
 -- | Map a function then flatten to a list.
 --
