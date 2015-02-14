@@ -74,7 +74,7 @@ headOr ::
   -> a
 headOr d Nil = d
 headOr d (h :. t) = h
-  
+
 --  error "todo"
 
 -- | The product of the elements of a list.
@@ -154,11 +154,11 @@ filter ::
 filter _ Nil = Nil
 filter f (h :. t) = if f h then h :. (filter f t) else (filter f t)
 
-{-- 
+{--
 -- Using Guards
 filter _ Nil = Nil
-filter f (h :. t) 
-  | f h = h :. $ filter f t 
+filter f (h :. t)
+  | f h = h :. $ filter f t
   | otherwise = filter f t
 --}
 
@@ -180,8 +180,10 @@ filter f (h :. t)
   List a
   -> List a
   -> List a
-(++) =
-  error "todo"
+(++) x Nil = x
+(++) Nil x = x
+(++) (h :. t) (h2 :. t2) =
+--  error "todo"
 
 infixr 5 ++
 
@@ -230,7 +232,7 @@ flattenAgain =
 
 -- | Convert a list of optional values to an optional list of values.
 --
--- * If the list contains all `Full` values, 
+-- * If the list contains all `Full` values,
 -- then return `Full` list of values.
 --
 -- * If the list contains one or more `Empty` values,
