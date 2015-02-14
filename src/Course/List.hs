@@ -198,7 +198,7 @@ infixr 5 ++
 --
 -- prop> sum (map length x) == length (flatten x)
 flatten :: List (List a) -> List a
-flatten (h :. Nil) = h ++ Nil
+flatten Nil = Nil
 flatten (h :. t) = h ++ flatten t
 --  error "todo"
 
@@ -212,12 +212,10 @@ flatten (h :. t) = h ++ flatten t
 -- prop> headOr x (flatMap id (y :. infinity :. Nil)) == headOr 0 y
 --
 -- prop> flatMap id (x :: List (List Int)) == flatten x
-flatMap ::
-  (a -> List b)
-  -> List a
-  -> List b
-flatMap =
-  error "todo"
+flatMap :: (a -> List b) -> List a -> List b
+flatMap f Nil = Nil
+flatMap f (h :. t) = flatten $ f h :. flatMap f t
+--  error "todo"
 
 -- | Flatten a list of lists to a list (again).
 -- HOWEVER, this time use the /flatMap/ function that you just wrote.
