@@ -253,8 +253,8 @@ flattenAgain =
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional =
-  error "todo"
+seqOptional x = Full $ map (\x -> case x of (Full y) -> y) x
+--  error "todo"
 
 -- | Find the first element in the list matching the predicate.
 --
