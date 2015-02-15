@@ -255,7 +255,7 @@ seqOptional ::
   -> Optional (List a)
 seqOptional x = Full $ map (\x -> case x of (Full y) -> y) x
 --  error "todo"
-
+--
 -- | Find the first element in the list matching the predicate.
 --
 -- >>> find even (1 :. 3 :. 5 :. Nil)
@@ -276,8 +276,10 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
-find =
-  error "todo"
+find f x
+  | (filter f x) == Nil = Empty
+  | otherwise = Full $ headOr a (filter f x)
+--  error "todo"
 
 -- | Determine if the length of the given list is greater than 4.
 --
