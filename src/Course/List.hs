@@ -276,9 +276,13 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
+{--
 find f x
   | (filter f x) == Nil = Empty
   | otherwise = Full $ headOr a (filter f x)
+--}
+find f x = case (filter f x) of Nil -> Empty
+                                (h :. _) -> Full h
 --  error "todo"
 
 -- | Determine if the length of the given list is greater than 4.
@@ -297,8 +301,9 @@ find f x
 lengthGT4 ::
   List a
   -> Bool
-lengthGT4 =
-  error "todo"
+lengthGT4 x = case x of (_ :. _ :. _ :. _ :. _) -> True
+                        (_) -> False
+--  error "todo"
 
 -- | Reverse a list.
 --
