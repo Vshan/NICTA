@@ -319,8 +319,9 @@ lengthGT4 x = case x of (_ :. _ :. _ :. _ :. _) -> True
 reverse ::
   List a
   -> List a
-reverse =
-  error "todo"
+reverse Nil = Nil
+reverse (h :. t) = reverse t ++ (h :. Nil)
+--  error "todo"
 
 -- | Produce an infinite `List` that seeds with the given value at its head,
 -- then runs the given function for subsequent elements
@@ -334,8 +335,8 @@ produce ::
   (a -> a)
   -> a
   -> List a
-produce =
-  error "todo"
+produce f h = h :. produce f (f h)
+--  error "todo"
 
 -- | Do anything other than reverse a list.
 -- Is it even possible?
@@ -351,6 +352,10 @@ notReverse ::
   -> List a
 notReverse =
   error "todo"
+{-- Some ideas for logic: Print a random permutation of List and ensure that it's not
+- its reverse.
+--}
+
 
 ---- End of list exercises
 
