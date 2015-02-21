@@ -35,8 +35,7 @@ instance Apply Id where
     Id (a -> b)
     -> Id a
     -> Id b
-  (<*>) =
-    error "todo"
+  (<*>) (Id (f)) (Id a) = Id (f a)
 
 -- | Implement @Apply@ instance for @List@.
 --
@@ -47,8 +46,7 @@ instance Apply List where
     List (a -> b)
     -> List a
     -> List b
-  (<*>) =
-    error "todo"
+  (<*>) fs xs = flatten $ (\f -> f <$> xs) <$> fs
 
 -- | Implement @Apply@ instance for @Optional@.
 --
@@ -65,8 +63,10 @@ instance Apply Optional where
     Optional (a -> b)
     -> Optional a
     -> Optional b
-  (<*>) =
-    error "todo"
+  (<*>) Empty _ = Empty
+  (<*>) _ Empty = Empty
+  (<*>) (Full (f)) (Full a) = Full (f a)
+--    error "todo"
 
 -- | Implement @Apply@ instance for reader.
 --
