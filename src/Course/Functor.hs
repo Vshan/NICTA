@@ -41,8 +41,8 @@ instance Functor Id where
     (a -> b)
     -> Id a
     -> Id b
-  (<$>) =
-    error "todo"
+  (<$>) f (Id a) = Id (f a)
+ --   error "todo"
 
 -- | Maps a function on the List functor.
 --
@@ -56,8 +56,9 @@ instance Functor List where
     (a -> b)
     -> List a
     -> List b
-  (<$>) =
-    error "todo"
+  (<$>) f Nil = Nil
+  (<$>) f (h :. t) = (f h) :. (f <$> t)
+ --   error "todo"
 
 -- | Maps a function on the Optional functor.
 --
@@ -71,8 +72,9 @@ instance Functor Optional where
     (a -> b)
     -> Optional a
     -> Optional b
-  (<$>) =
-    error "todo"
+  (<$>) _ Empty = Empty
+  (<$>) f (Full a) = Full (f a)
+--    error "todo"
 
 -- | Maps a function on the reader ((->) t) functor.
 --
@@ -84,7 +86,7 @@ instance Functor ((->) t) where
     -> ((->) t a)
     -> ((->) t b)
   (<$>) =
-    error "todo"
+   error "todo"
 
 -- | Anonymous map. Maps a constant value on a functor.
 --
@@ -99,8 +101,8 @@ instance Functor ((->) t) where
   a
   -> f b
   -> f a
-(<$) =
-  error "todo"
+(<$) x a = (\_ -> x) <$> a
+--  error "todo"
 
 -- | Anonymous map producing unit value.
 --
@@ -119,8 +121,8 @@ void ::
   Functor f =>
   f a
   -> f ()
-void =
-  error "todo"
+void x = (\_ -> ()) <$> x
+--  error "todo"
 
 -----------------------
 -- SUPPORT LIBRARIES --
